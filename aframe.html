@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="//unpkg.com/aframe-leap-hands/dist/aframe-leap-hands.umd.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script> 
+
+    <script src="core.js"></script>
+    <script>
+
+    </script>
+  </head>
+  <body>
+    <a-scene >
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-assets>
+            <!-- <img id="tree-obj" src="http://pngimg.com/uploads/balloon/balloon_PNG4960.png" crossorigin="anonymous" /> -->
+            <!-- <a-asset-item id="tree-obj" src="scene.gltf" crossorigin="anonymous"></a-asset-item> -->
+        </a-assets>
+        <a-sphere id="ball"
+        position="0.9 -10 -5" 
+        radius="0.80"
+        color="#FFF"
+        change-color-on-hover="color: blue" 
+        event-set__click="material.color: red;">
+      </a-sphere>
+
+        <a-sky color="#eb4c24"></a-sky>
+    </a-scene>
+  </body>
+  <script src="controller.js"></script>
+<script>
+  render();
+</script>
+</html>
