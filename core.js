@@ -1,7 +1,35 @@
-AFRAME.registerComponent('ball', {
+AFRAME.registerComponent('ballon', {
+  schema: {
+    valor: {type: 'string', default: '0'},
+    id: {type:'string', default: ''}
+  },
+
   init: function () {
-    console.log('Hello, World!');
-  }
+    var self = this;
+    this.eventHandlerFn = function () { console.log(self.data.valor); };
+  },
+
+  update: function (oldData) {
+    var data = this.data;
+    var el = this.el;
+
+    // `event` updated. Remove the previous event listener if it exists.
+    if (oldData.event && data.event !== oldData.event) {
+      el.removeEventListener(oldData.event, this.eventHandlerFn);
+    }
+
+    if (data.event) {
+      el.addEventListener(data.event, this.eventHandlerFn);
+    } else {
+      console.log(data.valor);
+    }
+  },
+  play: function(){
+    console.log(this.data)
+  },
+  tick: function (t) {},
+  tock: function(time, timeDelta, camera){} 
+
 });
 
 
