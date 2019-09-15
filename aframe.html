@@ -5,9 +5,9 @@
     <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script> 
     <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
     <script src="https://harlyq.github.io/aframe-randomize-component/aframe-randomize-component.js"></script>
-    <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
-    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-seek-position-component/dist/aframe-seek-position-component.min.js"></script> 
+    
+
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script> 
 
 
 
@@ -24,7 +24,9 @@
         <a-camera>
             <a-cursor></a-cursor>
         </a-camera>
-
+        <a-assets>
+          <img id="textura" src="balloon.png"/>
+        </a-assets>
 
         <a-entity position="0 1.8 5">
           <a-entity camera look-controls></a-entity>
@@ -45,33 +47,39 @@
       <!-- <a-sphere id=1 radius="0.40" alongpath="curve: #track1; loop: true; dur: 8000"  
       change-color-on-hover="color: blue"></a-sphere> -->
 
-      
 
       <a-sphere ballon
       id="ball2"    
-      position="0 1.3 -12.54" 
+      valor="100"
+      position="-13 1.3 -12.54" 
       seek-position="0 8 -12.64"
-      radius="0.80"
-      color="#000"
+        src="balloon_metallic_white.jpg"
       change-color-on-hover="color: blue" 
       event-set__click="material.color: red;"
+      animation="property: position; to: -13 10.03 -12.54; dur: 5500; easing: linear; loop: true"
       sound="on: click; src: url(splash.wav)">
       </a-sphere>
       
+<!--
+  entre -17 , 0 , 17
+-->
 
 
       <a-sphere ballon
       id="ball"    
+      valor="25"
       position="0.9 -5 0" 
       radius="0.80"
       color="#FFF"
       change-color-on-hover="color: blue" 
       event-set__click="material.color: red;"
+      animation="property: position; to: 0 6.03 -12.54; dur: 8500; easing: linear; loop: true"
       sound="on: click; src: url(splash.wav)">
       </a-sphere>
 
-        <a-sound src="src: url(Baboons-with-Balloons.mp3)" autoplay="true" position="0 2 5"></a-sound>
-        <a-sky color="#eb4c24"></a-sky>
+        <!-- <a-sound src="src: url(Baboons-with-Balloons.mp3)" autoplay="true" position="0 2 5"></a-sound> -->
+        <!-- <a-sky color="#eb4c24" src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg"></a-sky> -->
+        <a-sky  src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg"></a-sky>
     </a-scene>
   </body>
   <script src="controller.js"></script>

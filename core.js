@@ -6,7 +6,19 @@ AFRAME.registerComponent('ballon', {
 
   init: function () {
     var self = this;
-    this.eventHandlerFn = function () { console.log(self.data.valor); };
+    this.eventHandlerFn = function () { 
+      console.log(self.data.valor); 
+    };
+    this.el.addEventListener('click', function(evt) {
+      console.log('This 2D element was clicked!');
+
+      var scene = document.querySelector('a-scene');
+      var text = document.createElement('a-text');
+      text.setAttribute('value', 'ACERTOU O BALAO '+ Math.floor(Math.random() * 100 + 1 ));
+      text.setAttribute('position', '0.9 0 -3');
+      
+      scene.appendChild(text);
+    });
   },
 
   update: function (oldData) {
