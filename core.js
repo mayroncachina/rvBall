@@ -1,7 +1,6 @@
 AFRAME.registerComponent('ballon', {
   schema: {
     valor: {type: 'string', default: '0'},
-    id: {type:'string', default: ''}
   },
 
   init: function () {
@@ -12,11 +11,17 @@ AFRAME.registerComponent('ballon', {
     this.el.addEventListener('click', function(evt) {
       console.log('This 2D element was clicked!');
 
+      if (evt.type == 'click') {
+        var el = self.el;
+        el.setAttribute("visible",false);
+      }
       var scene = document.querySelector('a-scene');
       var text = document.createElement('a-text');
-      text.setAttribute('value', 'ACERTOU O BALAO '+ Math.floor(Math.random() * 100 + 1 ));
-      text.setAttribute('position', '0.9 0 -3');
-      
+      text.setAttribute('value', 'ACERTOU O BALAO ');
+      text.setAttribute('position', '0.76432 2.74009 -3.29358');
+
+           
+      // document.querySelector('a-camera').setAttribute('position', {x:0.9, y:0, z:-3});
       scene.appendChild(text);
     });
   },
