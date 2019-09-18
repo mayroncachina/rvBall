@@ -1,65 +1,68 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-    <script src="//unpkg.com/aframe-leap-hands/dist/aframe-leap-hands.umd.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script> 
-    <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
-    <script src="https://harlyq.github.io/aframe-randomize-component/aframe-randomize-component.js"></script>
-    
-    <script src="https://unpkg.com/aframe-entity-generator-component@3.0.2/dist/aframe-entity-generator-component.min.js"></script>
-
-
+    <meta charset="utf-8">
+    <title>A-Frame Super Keyboard - Numeric Pad</title>
+    <meta name="description" content="Numpad for Super Keyboard."></meta>
+    <script src="https://rawgit.com/aframevr/aframe/c4aa63e/dist/aframe-master.min.js"></script>
+    <script src="dist/aframe-super-keyboard.min.js"></script>
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script> 
-
-
-
-    <script src="core.js"></script>
-    <!-- <script src="move.js"></script> -->
-    <script>
-
-    </script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://wandererou.github.io/aframe-keyboard/examples/aframe-keyboard.min.js"></script>
   </head>
   <body>
-    <a-scene background="color: #ff4700">
-       
+    <a-scene environment="preset: contact; skyColor: #ff4700; horizonColor: #ff4700; ground: hills; groundTexture: checkerboard; groundColor: #4f3e4b; groundColor2: #4d3c47; dressing: none; grid: none">
+      <a-camera>
+          <a-cursor 
+            color="#FFF"
+            cursor="fuse: true;fuseTimeout:300"
+            position="0 0 -0.4"
+          />
+      </a-camera>
 
-        <a-camera>
-            <a-cursor color="#FFF"></a-cursor>
-        </a-camera>
+      <a-assets>
+        <img id="logo" crossorigin="anonymous" src="selo_promo.png">
+      </a-assets>
+
+      <a-image src="#logo" position="-0.23 4.9 -6.7981" material="height:251.17" geometry="" scale="5.11889 3.84183 10.65189"></a-image>
+
+      <!-- keyboard -->
+      <a-text id="input" font="dejavu" color="#000" value="COD" scale="0.5 0.5 0.5" position="-0.500 1.720 -1.000"></a-text>
+      <a-plane color="#FFF" scale="1.136 0.194 0" position="-0.020 1.730 -1.100" shader="flat"></a-plane>
+      <a-entity
+          id="keyboard"
+          position="-0.250 1.6 -0.5"
+          a-keyboard
+      />
+
+      <script>
+        var input = ''
+        function updateInput(e) {
+          var code = parseInt(e.detail.code)
+          switch(code) {
+          case 13:
+            teclando()
+            break
+          case 999:
+            teclando()        
+            return
+          default:
+            input = input + e.detail.value
+            break
+          }
+          document.querySelector('#input').setAttribute('value', input + '_')
+        }
+
+        function teclando(){
+          var keyboard = document.querySelector('#keyboard')
+          document.querySelector('#input').setAttribute('value', input)
+          document.querySelector('#input').setAttribute('color', 'blue')
+          keyboard.parentNode.removeChild(keyboard)
+          window.location = '/select.html?cod='+input
+        }
         
-      <!-- <a-entity ui-modal visible="false">
-        <a-plane width="3" height="1" color="red" position="0.9 -10 -5"></a-plane>
-       <a-text value="PARABÉNS VOCÊ ACERTOU O BALÃO"></a-text> 
-      </a-entity> -->
-
-      <!-- curve
-      <a-curve id="track1" >
-        <a-curve-point position="0.9 -10 -5"></a-curve-point>
-        <a-curve-point position="0 1 -3"></a-curve-point>
-        <a-curve-point position="2 2 -3"></a-curve-point>
-      </a-curve>
-      <a-sphere id=1 radius="0.40" alongpath="curve: #track1; loop: true; dur: 8000"  
-      change-color-on-hover="color: blue"></a-sphere> -->
-
-      <a-sphere ballon
-      id="ball"    
-      valor="25"
-      position="0.9 -5 0" 
-      radius="0.80"
-      color="#FFF"
-      change-color-on-hover="color: blue" 
-      event-set__click="material.color: red;"
-      animation="property: position; to: 0 6.03 -12.54; dur: 8500; easing: linear; loop: true"
-      sound="on: click; src: url(splash.wav)">
-      </a-sphere>
-
-      <!-- <a-sound src="src: url(Baboons-with-Balloons.mp3)" autoplay="true" position="0 2 5"></a-sound> -->
-      <!-- <a-sky color="#eb4c24" src="https://c3.staticflickr.com/2/1475/26239222850_cabde81c39_k.jpg"></a-sky> -->
-      <!-- <a-sky  src="https://cdn.eso.org/images/publicationjpg/uhd-img-8535pv2-cc-eq-extended.jpg"></a-sky> -->
-    </a-scene>
+        document.addEventListener('a-keyboard-update', updateInput)
+      </script>
   </body>
-  <script src="controller.js"></script>
-<script>
-  init();
-</script>
 </html>

@@ -1,0 +1,137 @@
+<html>
+  <head>
+      <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+
+    <script src="//unpkg.com/aframe-leap-hands/dist/aframe-leap-hands.umd.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script> 
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
+    <script src="https://harlyq.github.io/aframe-randomize-component/aframe-randomize-component.js"></script>
+    
+    <script src="https://unpkg.com/aframe-entity-generator-component@3.0.2/dist/aframe-entity-generator-component.min.js"></script>
+
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script> 
+    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script> 
+
+    <script src="core.js"></script>
+    <!-- <script src="move.js"></script> -->
+  </head>
+  <body>
+   
+    <a-scene background="color: #ff4700">
+       
+        <a-assets>
+          <img id="transpImage" crossorigin="anonymous" src="http://ekladata.com/hXTGfWnZm170W274zDRObDlqOlc.png">
+          <img id="flatImage" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png">
+          <img id="logo" crossorigin="anonymous" src="selo_promo.png">
+        </a-assets>
+        
+        
+        <a-camera>
+            <a-cursor 
+              color="#FFF"
+              cursor="fuse: true;fuseTimeout:300"
+            />
+            <a-cone color="brown" radius-bottom=".2" radius-top=".05" height=".5"
+            position="0 -.6 0.1" rotation="-80 0 0"></a-cone>
+        
+
+            <a-gui-flex-container id="count" flex-direction="column" justify-content="center" height="3.3" width="5.9" align-items="normal" component-padding="0.1" opacity="0.7" position="-11.06 -6.25 -8.48122" rotation="" geometry="primitive: plane; " material="shader: flat; transparent: true; opacity: 0.7; alphaTest: 0.5; color: #22252a" gui-flex-container="">
+
+              <a-gui-label id="chances"
+                width="2.5" height="0.75"
+                value="Chances: 50"
+                font-family="Arial"
+                margin="0 0 0.05 0"
+              >
+              </a-gui-label>
+
+              <a-gui-label id="impressoes"
+                width="2.5" height="0.75"
+                value="0"
+                font-family="Arial"
+                margin="0 0 0.15 0"
+              >
+              </a-gui-label>
+
+              <a-gui-label id="time"
+                width="2.5" height="0.75"
+                value="0:00"
+                font-family="Arial"
+                margin="0 0 0.20 0"
+              >
+              </a-gui-label>
+
+              
+
+            </a-gui-flex-container>
+
+        </a-camera>
+        
+        <!-- start screen -->
+        <a-gui-flex-container
+          id="menu"
+          flex-direction="column"
+          justify-content="center" align-items="normal" component-padding="0.1" opacity="1" width="3.5" height="4.5" position="-0.22 2.72 -5.657" rotation=""
+          geometry="primitive: plane; height: 4.5; width: 3.5"
+          material="shader: flat; transparent: true; opacity: 0; alphaTest: 0.5; color: #ffffff" gui-flex-container="">
+          
+          <a-image src="#logo" position="0.03086 1.21915 1.42" material="height: 251.17" geometry="" scale="3.14 1.69 1"></a-image>
+          
+          <a-text id="frase-1" position="-1.33321 -0.148 0.192" value="Voce tem a chance de estourar" text="width: 4.52; tabSize: 4.08"></a-text>
+          <a-text id="frase-2" position="-0.44 -0.293 0.192" value="XX bolas" text=""></a-text>
+          <a-text id="frase-3" position="-0.54 -0.525 0.192" value="Boa sorte!" text=""></a-text>
+
+          <a-gui-button id="iniciar" width="2.5" height="0.75" onclick="init" key-code="32" value="JOGAR" margin="0 0 0.05 0" toggle="true" gui-interactable="" geometry="primitive: plane; height: 0.75; width: 2.5" material="shader: flat; transparent: true; opacity: 0.5; side: double; color: #22252a" role="button" gui-button="toggleState: true" position="0 -1.79 0.01">
+            <a-entity geometry="width: 2.5; height: 0.75; depth: 0.02" material="shader: flat; side: double; color: #d3d3d4" rotation="" position="0 0 0.01"></a-entity><a-entity geometry="width: 2.475; height: 0.725; depth: 0.04" material="shader: flat; side: double; color: #ed5b21" rotation="" position="0 0 0.02"></a-entity>
+            <a-entity geometry="primitive: plane; width: 2.380952380952381; height: 0.7142857142857143" material="shader: flat; color: black; transparent: true" position="0 0 0.041"></a-entity>
+          </a-gui-button>
+
+
+          <a-gui-button id="imprimir" visible="false" width="2.5" height="0.75" onclick="print" key-code="32" value="IMPRIMIR" margin="0 0 0.05 0" toggle="true" gui-interactable="" geometry="primitive: plane; height: 0.75; width: 2.5" material="shader: flat; transparent: true; opacity: 0.5; side: double; color: #22252a" role="button" gui-button="toggleState: true" position="0 -1.79 0.01">
+              <a-entity geometry="width: 2.5; height: 0.75; depth: 0.02" material="shader: flat; side: double; color: #d3d3d4" rotation="" position="0 0 0.01"></a-entity><a-entity geometry="width: 2.475; height: 0.725; depth: 0.04" material="shader: flat; side: double; color: #ed5b21" rotation="" position="0 0 0.02"></a-entity>
+              <a-entity geometry="primitive: plane; width: 2.380952380952381; height: 0.7142857142857143" material="shader: flat; color: black; transparent: true" position="0 0 0.041"></a-entity>
+            </a-gui-button>
+
+        </a-gui-flex-container>
+
+        
+
+        <!-- end start screen -->
+    
+
+        <a-plane static-body position="0 0 0" rotation="-90 0 0" width="30" height="30" color="black" material="transparent: false; opacity: 0.4"></a-plane>
+        <a-sound src="src: url(misc/Baboons-with-Balloons.mp3)" autoplay="true" loop="true" position="0 2 5"></a-sound>
+
+    </a-scene>
+
+
+
+  </body>
+  <script src="controller.js"></script>
+  <script>
+
+$( document ).ready(function() {
+      //verificar o codigo informado
+      var queryDict = {}
+      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+      qtd_repeat = queryDict.cod;
+
+      //verificar a lista de notas  (mostrar na tela para ele escolher)
+      //http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166
+      $.get("http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166", function(data, status){
+        console.log("Data: " + data + "\nStatus: " + status);
+      });
+
+      setTimeout(function(e) {
+        var frase = document.querySelector('#frase-2');
+        frase.setAttribute('value', qtd_repeat+' bolas');
+      }, 5000);  
+  });
+  </script>
+</html>

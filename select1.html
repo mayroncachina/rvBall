@@ -1,0 +1,118 @@
+<html>
+  <head>
+      <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+
+    <script src="//unpkg.com/aframe-leap-hands/dist/aframe-leap-hands.umd.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script> 
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
+    <script src="https://harlyq.github.io/aframe-randomize-component/aframe-randomize-component.js"></script>
+    
+    <script src="https://unpkg.com/aframe-entity-generator-component@3.0.2/dist/aframe-entity-generator-component.min.js"></script>
+
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script> 
+    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script> 
+
+    <script src="https://andrewmc1994.github.io/Image-Link-Test/js/aframe-src-fit-component.js"></script> 
+    <script src="https://andrewmc1994.github.io/Image-Link-Test/js/aframe-ui-modal-component.js"></script> 
+    
+
+    <script src="core.js"></script>
+    <!-- <script src="move.js"></script> -->
+  </head>
+  <body>
+    <a-scene background="color: #ff4700">      
+        <a-assets>
+          <img id="transpImage" crossorigin="anonymous" src="http://ekladata.com/hXTGfWnZm170W274zDRObDlqOlc.png">
+          <img id="flatImage" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png">
+          <img id="logo" crossorigin="anonymous" src="selo_promo.png">
+        </a-assets>
+        
+<!--         
+        <a-camera>
+            <a-cursor color="#FFF" cursor="fuse: true;fuseTimeout:300" />
+        </a-camera> -->
+        
+        <a-entity rotation="0 0 0" position="0 0 2">
+                <a-entity id="camera" far: 20; camera look-controls rotation="0 0 0" wasd-controls>
+                    <!-- MAIN CURSOR -->
+                    <a-entity raycaster="objects: .clickable" cursor="fuse: true; maxDistance: 500; timeout: 1500;" id="cursor-main" position="0 0 -1.5" geometry="primitive: ring; radiusOuter: 0.04; radiusInner: 0.03; thetaLength: 360; thetaStart: 90;" material="color: #439DC2;">
+                        <a-animation begin="cursor-fusing" attribute="geometry.thetaLength" fill="forwards" from="360" to="0" easing="ease-in"></a-animation>
+                        <a-animation begin="mouseleave" attribute="geometry.thetaLength" fill="backwards" from="0" to="360" dur="0"></a-animation>
+                    </a-entity>
+                    <a-entity id="cursor-loader" position="0 0 -1.51" geometry="primitive: ring; radiusOuter: 0.04; radiusInner: 0.03;" material="color: #2ADD2A;">
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+
+        <!-- start screen -->
+        <a-image src="#logo" position="0.071 3.71915 -5 material="height: 251.17" geometry="" scale="3.14 1.69 1"></a-image>
+        
+        <a-gui-flex-container
+          id="menu"
+          flex-direction="column"
+          justify-content="center" align-items="normal" component-padding="0.1" opacity="1" width="3.5" height="4.5" 
+          position="-4.63 2.72 -5.657" rotation="0 35.522810340315914"
+          geometry="primitive: plane; height: 4.5; width: 3.5"
+          material="shader: flat; transparent: true; opacity: 0; alphaTest: 0.5; color: #ffffff" gui-flex-container="">
+
+          <a-gui-label 
+          width="2.5" height="0.75"
+          value="Selecione a Nota"
+          font-family="Arial"
+          margin="0 0 0.05 0"
+      >
+      </a-gui-label>
+
+            <a-gui-button id="imprimir" visible="true" width="2.5" height="0.75" onclick="select()" key-code="32" value="1 x" margin="0 0 0.05 0" toggle="true" gui-interactable="" geometry="primitive: plane; height: 0.75; width: 2.5" material="shader: flat; transparent: true; opacity: 0.5; side: double; color: #22252a" role="button" gui-button="toggleState: true" position="0 -1.79 0.01">
+            <a-entity geometry="width: 2.5; height: 0.75; depth: 0.02" material="shader: flat; side: double; color: #d3d3d4" rotation="" position="0 0 0.01"></a-entity><a-entity geometry="width: 2.475; height: 0.725; depth: 0.04" material="shader: flat; side: double; color: #ed5b21" rotation="" position="0 0 0.02"></a-entity>
+            <a-entity geometry="primitive: plane; width: 2.380952380952381; height: 0.7142857142857143" material="shader: flat; color: black; transparent: true" position="0 0 0.041"></a-entity>
+            </a-gui-button>
+
+        </a-gui-flex-container>
+
+        
+
+        <!-- end start screen -->
+            <a-plane static-body position="0 0 0" rotation="-90 0 0" width="30" height="30" color="black" material="transparent: false; opacity: 0.4"></a-plane>
+    </a-scene>
+
+
+
+  </body>
+  <script src="controller.js"></script>
+  <script>
+
+$( document ).ready(function() {
+      //verificar o codigo informado
+      var queryDict = {}
+      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+      qtd_repeat = queryDict.cod;
+
+      //verificar a lista de notas  (mostrar na tela para ele escolher)
+      //http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166
+      $.get("http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166", function(data, status){
+        console.log("Data: " + data + "\nStatus: " + status);
+        html = '';
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];            
+            console.log(element.idnota_fiscal)
+            html += '<a-gui-button id="imprimir" visible="true" width="2.5" height="0.75" onclick="select()" key-code="32" value="1 x" margin="0 0 0.05 0" toggle="true" gui-interactable="" geometry="primitive: plane; height: 0.75; width: 2.5" material="shader: flat; transparent: true; opacity: 0.5; side: double; color: #22252a" role="button" gui-button="toggleState: true" position="0 -1.79 0.01">';
+            html += '<a-entity geometry="width: 2.5; height: 0.75; depth: 0.02" material="shader: flat; side: double; color: #d3d3d4" rotation="" position="0 0 0.01"></a-entity><a-entity geometry="width: 2.475; height: 0.725; depth: 0.04" material="shader: flat; side: double; color: #ed5b21" rotation="" position="0 0 0.02"></a-entity>';
+            html += '<a-entity geometry="primitive: plane; width: 2.380952380952381; height: 0.7142857142857143" material="shader: flat; color: black; transparent: true" position="0 0 0.041"></a-entity>';
+            html += '</a-gui-button>';
+        }    
+        $('#itens').html(html);
+
+
+      });
+
+    
+  });
+  </script>
+</html>

@@ -1,6 +1,6 @@
 AFRAME.registerComponent('ballon', {
   schema: {
-    valor: {type: 'string', default: '0'},
+    valor: {type: 'int'},
   },
 
   init: function () {
@@ -14,15 +14,29 @@ AFRAME.registerComponent('ballon', {
       if (evt.type == 'click') {
         var el = self.el;
         el.setAttribute("visible",false);
+        // console.log(self.data.valor);
       }
+      var impressao = $('#impressoes');
+      valor = parseInt(impressao.attr('value'));
+      console.log(valor)
+      valor = parseInt(self.data.valor) + valor
+      console.log(valor)
+      impressao.attr('value', parseInt(self.data.valor) + valor);
+
       var scene = document.querySelector('a-scene');
       var text = document.createElement('a-text');
       text.setAttribute('value', 'ACERTOU O BALAO ');
       text.setAttribute('position', '0.76432 2.74009 -3.29358');
 
+      var image = document.createElement('a-image');
+      image.setAttribute("position", "0 1.6 -1");
+      image.setAttribute("width", "1");
+      image.setAttribute("height", "1");
+      image.setAttribute("src", "#transpImage"); 
            
       // document.querySelector('a-camera').setAttribute('position', {x:0.9, y:0, z:-3});
-      scene.appendChild(text);
+      // scene.appendChild(text);
+      // scene.appendChild(image);
     });
   },
 
@@ -38,11 +52,11 @@ AFRAME.registerComponent('ballon', {
     if (data.event) {
       el.addEventListener(data.event, this.eventHandlerFn);
     } else {
-      console.log(data.valor);
+      // console.log(data.valor);
     }
   },
   play: function(){
-    console.log(this.data)
+    // console.log(this.data)
   },
   tick: function (t) {},
   tock: function(time, timeDelta, camera){} 
@@ -91,3 +105,27 @@ AFRAME.registerComponent('change-color-on-hover', {
       });
     }
   });  
+
+
+
+AFRAME.registerGeometry('bar', {
+    schema: {
+      vertices: {
+        default: ['-10 10 0', '-10 -10 0', '10 -10 0'],
+      }
+    },
+  
+    init: function (data) {
+      var geometry = new THREE.Geometry();
+      geometry.vertices = data.vertices.map(function (vertex) {
+          var points = vertex.split(' ').map(function(x){return parseInt(x);});
+          return new THREE.Vector3(points[0], points[1], points[2]);
+      });
+      geometry.computeBoundingBox();
+      geometry.faces.push(new THREE.Face3(0, 1, 2));
+      geometry.mergeVertices();
+      geometry.computeFaceNormals();
+      geometry.computeVertexNormals();
+      this.geometry = geometry;
+    }
+});
