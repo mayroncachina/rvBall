@@ -33,6 +33,9 @@ AFRAME.registerComponent('ballon', {
       image.setAttribute("width", "1");
       image.setAttribute("height", "1");
       image.setAttribute("src", "#transpImage"); 
+
+
+      the_end();
            
       // document.querySelector('a-camera').setAttribute('position', {x:0.9, y:0, z:-3});
       // scene.appendChild(text);

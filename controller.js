@@ -17,21 +17,21 @@ function init(){
         scene.appendChild(addBall());
     }
 
-    var timer_ = 0;
-    var tm = setInterval(function(e) {
-        var timer = $('#time');
-        timer_ += 1;
-        timer.attr('value', timer_);
-    },1000);
-    setTimeout(function(e) {
-      the_end();
-      window.clearInterval(tm);
-    }, 30 * 1000);   
+    // var timer_ = 0;
+    // var tm = setInterval(function(e) {
+    //     var timer = $('#time');
+    //     timer_ += 1;
+    //     timer.attr('value', timer_);
+    // },1000);
+    // setTimeout(function(e) {
+    //   the_end();
+    //   window.clearInterval(tm);
+    // }, 30 * 1000);   
 }
 
 
 function print(){
-    init();
+    window.location = 'index.html'
     //mandar imprimir o codigo na impressoa
     //verificar se tem mais alguma vez pra jogar, se sim, volta pra o menu de "voce tem mais XX vezes"
     //caso tenha terminado volta pra tela de colocar o codigo

@@ -10,12 +10,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://andrewmc1994.github.io/Image-Link-Test/js/aframe-ui-modal-component.js"></script>
     <script src="https://andrewmc1994.github.io/Image-Link-Test/js/aframe-src-fit-component.js"></script>
+    <script src="https://harlyq.github.io/aframe-randomize-component/aframe-randomize-component.js"></script>
 </head>
 
 <body>
 
-    <a-scene background="color: #ff4700">
-
+    <a-scene background="color: #ff4700" loading-screen="dotsColor: red; backgroundColor: black">
+        
         <!-- CURSOR ENTITY -->
         <a-entity rotation="0 0 0" position="0 0 2">
             <a-entity id="camera" far: 20; camera look-controls rotation="0 0 0" wasd-controls>
@@ -47,98 +48,127 @@
             <img id="close" crossorigin="anonymous" src="https://andrewmc1994.github.io/Image-Link-Test/navigation/close.png">
             
             <img id="keyboard" crossorigin="anonymous" src="images/home-keyboard.png">
+            <img id="help" crossorigin="anonymous" src="images/home-help.png">
+            <img id="percento" crossorigin="anonymous" src="images/home-percento.png">
+            <img id="cupom" crossorigin="anonymous" src="images/area-cupom.png">
             <img id="logo" crossorigin="anonymous" src="selo_promo.png">
             
 
         </a-assets>
 
         <a-image src="#logo" position="0.071 3.719 -5" material="height:251.17" scale="4.894 2.634 1.558"></a-image>
-        <a-entity ui-modal="triggerElement:#selection;" visible="false">
 
+        <a-entity id="popup" ui-modal="triggerElement:#infobox;" visible="false">
             <a-image src="#submenu" scale="3.5 3.5 0" position="0 -0.25 2" src-fit></a-image>
+            <!--
             <a-image position="-1 -0.25 2.1" class="clickable" src="#tqicon" scale="0.7 0.7 0" link="href:location1.html; on: click; visualAspectEnabled: false" src-fit></a-image>
             <a-image position="0 -0.25 2.1" class="clickable" src="#acicon" scale="0.7 0.7 0" link="href:location3.html; on: click; visualAspectEnabled: false" src-fit></a-image>
             <a-image position="1 -0.25 2.1" class="clickable" src="#bchicon" scale="0.7 0.7 0" link="href:location2.html; on: click; visualAspectEnabled: false" src-fit></a-image>
             <a-image position="1.2 0 2.1" class="clickable" src="#close" scale="0.1 0.1 0" id="close" src-fit></a-image>
-
+            -->
         </a-entity>
 
-        <a-entity ui-modal="triggerElement:#test;" visible="false" look-at="[mouse]">
-
-        <a-image src="#submenu" rotation="0 1 0" position="-0.30 -0.4 2.32" scale="1.5 0.26 0"></a-image>
-            
-        <a-image position="-0.75 -0.39 2.35" class="clickable" rotation="0 0 0" src="#3d1" scale="0.3 0.15 0" link="href:model.html; on: click; visualAspectEnabled: false"></a-image>
-            
-        <a-image position="-0.28 -0.39 2.35" class="clickable" rotation="0 0 0" src="#3d2" scale="0.35 0.16 0" link="href:model2.html; on: click; visualAspectEnabled: false"></a-image>
-            
-        <a-image position="0.18 -0.38 2.4" class="clickable" rotation="0 0 0" src="#3d3" scale="0.31 0.15 0" link="href:model3.html; on: click; visualAspectEnabled: false"></a-image>
-
-        </a-entity>
-
-        <a-entity ui-modal="triggerElement:#infobox;" visible="false">
-
-            <a-image position="0 0 2.45" src="#info" scale="1.7 0.9 0"></a-image>
-
-        </a-entity>
 
         <a-sky src="#360"></a-sky>
 
         <a-image src="#menu" width="3" scale="3 3 0" position="0 -0.29 -1" src-fit></a-image>
-
-        <a-image class="clickable" src="#home" scale="0.3 0.3 0" position="-1 -0.35 -0.9" link="href:options.html; on: click; visualAspectEnabled: false" src-fit></a-image>
-
-        <a-image id="selection" class="clickable" src="#keyboard" scale="0.3 0.3 0" position="-0.5 -0.35 -0.9" src-fit></a-image>
-
-        <a-image id="test" class="clickable" src="#3d" scale="0.3 0.3 0" position="0.5 -0.35 -0.9" src-fit></a-image>
-
-        <a-image id="infobox" class="clickable" src="#information" scale="0.3 0.3 0" position="1 -0.35 -0.9" src-fit></a-image>
+        
+        <a-image class="clickable" src="#home" scale="0.3 0.3 0" position="-1 -0.35 -0.9" link="href:index.html; on: click; visualAspectEnabled: false" src-fit></a-image>
+        <a-image id="selection" class="clickable" src="#keyboard" scale="0.3 0.3 0" position="-0.5 -0.35 -0.9" link="href:index.html; on: click; visualAspectEnabled: false" src-fit></a-image>
+        <a-image id="infobox" class="clickable" src="#percento" scale="0.3 0.3 0" position="0.5 -0.35 -0.9" src-fit></a-image>
+        <a-image id="test" class="clickable" src="#help" scale="0.3 0.3 0" position="1 -0.35 -0.9" src-fit></a-image>
 
     </a-scene>
 
   
     <script>
+
+
+$( document ).ready(function() {
+      var popup = document.querySelector('#popup');
+      //verificar o codigo informado
+      var queryDict = {}
+      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+      qtd_repeat = queryDict.cod;
+
+
+      //fazer um preload nesse estilo -> https://tobiasahlin.com/spinkit/
+
+      //verificar a lista de notas  (mostrar na tela para ele escolher)
+      //http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166
+      $.get("http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166", function(data, status){
+        
+        lista = JSON.parse(data)
+        console.log(lista);
+
+
+        var x = -1.22;
+        for (let index = 0; index < lista.length; index++) {
+            
+            const element = lista[index];
+            console.log(element.idnota_fiscal)
+            var item = document.createElement('a-image');
+            item.setAttribute('id',element.idnota_fiscal);
+            item.setAttribute('position', x + " -0.251 2.02");
+            item.setAttribute('class', "clickable");
+            item.setAttribute('src', "#cupom");
+            item.setAttribute('scale', "0.7 0.7 0");
+            item.setAttribute('link', "href:game.html?cupom="+element.idnota_fiscal+"; on: click; visualAspectEnabled: false");
+            item.setAttribute('src-fit','');
+            popup.appendChild(item);
+            
+            x = x - (x * 0.55);
+        }    
+        
+      });
+});
+
     
     var ModalEffects = (function() {
 
     function init() {
+        // let closeBtn = document.getElementById("close")
+        // closeBtn.addEventListener(this.data.trigger, e => {
+        //     this.el.setAttribute("visible", "false")
+        // })
 
-        var overlay = document.querySelector( 'ui-modal' );
+        // var overlay = document.querySelector( 'ui-modal' );
 
-        [].slice.call( document.querySelectorAll( '#selection' ) ).forEach( function( el, i ) {
+        // [].slice.call( document.querySelectorAll( '#selection' ) ).forEach( function( el, i ) {
 
-            var modal = document.querySelector( '#' + el.getAttribute( 'data-modal' ) ),
-                close = modal.querySelector( '#close' );
+        //     var modal = document.querySelector( '#' + el.getAttribute( 'data-modal' ) ),
+        //         close = modal.querySelector( '#close' );
 
-            function removeModal( hasPerspective ) {
-                classie.remove( modal, 'md-show' );
+        //     function removeModal( hasPerspective ) {
+        //         classie.remove( modal, 'md-show' );
 
-                if( hasPerspective ) {
-                    classie.remove( document.documentElement, 'md-perspective' );
-                }
-            }
+        //         if( hasPerspective ) {
+        //             classie.remove( document.documentElement, 'md-perspective' );
+        //         }
+        //     }
 
-            function removeModalHandler() {
-                removeModal( classie.has( el, 'md-setperspective' ) ); 
-            }
+        //     function removeModalHandler() {
+        //         removeModal( classie.has( el, 'md-setperspective' ) ); 
+        //     }
 
-            el.addEventListener( 'click', function( ev ) {
-                classie.add( modal, 'md-show' );
-                overlay.removeEventListener( 'click', removeModalHandler );
-                overlay.addEventListener( 'click', removeModalHandler );
+        //     el.addEventListener( 'click', function( ev ) {
+        //         classie.add( modal, 'md-show' );
+        //         overlay.removeEventListener( 'click', removeModalHandler );
+        //         overlay.addEventListener( 'click', removeModalHandler );
 
-                if( classie.has( el, 'md-setperspective' ) ) {
-                    setTimeout( function() {
-                        classie.add( document.documentElement, 'md-perspective' );
-                    }, 25 );
-                }
-            });
+        //         if( classie.has( el, 'md-setperspective' ) ) {
+        //             setTimeout( function() {
+        //                 classie.add( document.documentElement, 'md-perspective' );
+        //             }, 25 );
+        //         }
+        //     });
 
-            close.addEventListener( 'click', function( ev ) {
-                ev.stopPropagation();
-                removeModalHandler();
-            });
+        //     close.addEventListener( 'click', function( ev ) {
+        //         ev.stopPropagation();
+        //         removeModalHandler();
+        //     });
 
-        } );
+        // } );
 
     }
 
