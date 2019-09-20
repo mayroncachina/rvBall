@@ -85,6 +85,7 @@
 
 
 $( document ).ready(function() {
+    document.querySelector('a-scene').enterVR()
       var popup = document.querySelector('#popup');
       //verificar o codigo informado
       var queryDict = {}
@@ -96,9 +97,9 @@ $( document ).ready(function() {
 
       //verificar a lista de notas  (mostrar na tela para ele escolher)
       //http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166
-      $.get("http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166", function(data, status){
-        
-        lista = JSON.parse(data)
+    //   $.get("http://localhost:8000/php/service.php?cod=promocenterrio&op=21&cliente=166", function(data, status){
+        data = [{idnota_fiscal: "16131",cupom: "006629",total: "1"},{idnota_fiscal: "16116",cupom: "006693",total: "3"}]
+        lista = data//JSON.parse(data)
         console.log(lista);
 
 
@@ -120,7 +121,7 @@ $( document ).ready(function() {
             x = x - (x * 0.55);
         }    
         
-      });
+    //   });
 });
 
     

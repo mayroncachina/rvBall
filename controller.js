@@ -17,16 +17,16 @@ function init(){
         scene.appendChild(addBall());
     }
 
-    // var timer_ = 0;
-    // var tm = setInterval(function(e) {
-    //     var timer = $('#time');
-    //     timer_ += 1;
-    //     timer.attr('value', timer_);
-    // },1000);
-    // setTimeout(function(e) {
-    //   the_end();
-    //   window.clearInterval(tm);
-    // }, 30 * 1000);   
+    var timer_ = 0;
+    var tm = setInterval(function(e) {
+        var timer = $('#time');
+        timer_ += 1;
+        timer.attr('value', timer_);
+    },1000);
+    setTimeout(function(e) {
+      the_end();
+      window.clearInterval(tm);
+    }, 30 * 1000);   
 }
 
 

@@ -35,7 +35,7 @@ AFRAME.registerComponent('ballon', {
       image.setAttribute("src", "#transpImage"); 
 
 
-      the_end();
+      // the_end();---descomentar
            
       // document.querySelector('a-camera').setAttribute('position', {x:0.9, y:0, z:-3});
       // scene.appendChild(text);
